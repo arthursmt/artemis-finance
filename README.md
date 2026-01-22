@@ -260,18 +260,19 @@ Or validate via curl http://localhost:5000/
 ---
 
 ## 9. Roadmap & next steps
-- complete Business Data and Financials (P&L) tabs
-- add a simple risk score based on member data + loan configuration
-- role-based flows for back-office teams (credit committee, operations)
-- audit trail and activity log per proposal
-- export proposals to a core banking / LOS system
+
+- Complete Business Data and Financials (P&L) tabs  
+- Add a simple risk score based on member data + loan configuration  
+- Role-based flows for back-office teams (credit committee, operations)  
+- Audit trail and activity log per proposal  
+- Export proposals to a core banking / LOS system  
 
 ---
 
 ## 10. Notes for reviewers & recruiters
+
 This repo is part of a product portfolio and demonstrates:
-- ability to frame a lending problem and translate policies into product constraints
-- user-friendly solutions
-- careful handling of edge cases and validations (dates, amounts, group structure)
-- hands-on execution with a modern web stack from concept → working MVP
-Questions about product decisions, trade-offs, or roadmap: feel free to open an issue or reach out via LinkedIn: https://www.linkedin.com/in/arthur-silva-maciel-tonaco/
+- Ability to frame a lending problem and translate policies into product constraints  
+- Design of clear, tablet-friendly flows for field agents  
+- Careful handling of edge cases and validations (dates, amounts, group structure)  
+- Hands-on execution with a modern web stack from concept → working MVP  
