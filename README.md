@@ -1,8 +1,6 @@
 # Artemis Finance – Credit Platform MVP
 
-Product case study and MVP design of a multi-app credit platform for microfinance and lending operations.
-
-This repository currently contains the **Artemis Hunt** app – the tablet-first tool used by field credit agents to prospect clients, build group loan proposals, run basic risk checks and configure loan products before sending them for approval.
+Product case study and working MVP of a multi-app credit platform for microfinance and lending operations.
 
 ECOSYSTEM MAP (MVP)
 
@@ -18,12 +16,22 @@ Repository structure (current)
 - shared/   -> Shared types/components/utilities across apps
 - attached_assets/ -> Screenshots and diagrams
 
+## About this project - My perspective
+
+This project demonstrates how I:
+- scoped product requirements from research
+- designed interaction flows for agents and back office users
+- implemented core screens with accessible validations
+- handled edge cases and UX patterns
+- documented known limitations and next steps
+
 ---
 
 ## 1. Overview
 
-Traditional microfinance and small-ticket lending still rely heavily on:
+This repository demonstrates the design and implementation of a digital credit platform aimed at supporting credit agents in field operations. The MVP focuses on the agent experience, capturing client proposals, enforcing business rules, and enabling seamless workflow from data capture to proposal review.
 
+Traditional microfinance and small-ticket lending still rely heavily on:
 - Paper forms and manual data entry  
 - Fragmented tools (WhatsApp, spreadsheets, legacy core systems)  
 - Little or no support for **group lending**  
