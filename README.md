@@ -257,12 +257,16 @@ Open the published URL directly: https://artemis-hub.replit.app
 Or validate via curl http://localhost:5000/
 * For reviewers/recruiters, the published URL is the reliable demo environment.
 
+---
+
 ## 9. Roadmap & next steps
 - complete Business Data and Financials (P&L) tabs
 - add a simple risk score based on member data + loan configuration
 - role-based flows for back-office teams (credit committee, operations)
 - audit trail and activity log per proposal
 - export proposals to a core banking / LOS system
+
+---
 
 ## 10. Notes for reviewers & recruiters
 This repo is part of a product portfolio and demonstrates:
