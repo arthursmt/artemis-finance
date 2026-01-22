@@ -275,4 +275,8 @@ This repo is part of a product portfolio and demonstrates:
 - Ability to frame a lending problem and translate policies into product constraints  
 - Design of clear, tablet-friendly flows for field agents  
 - Careful handling of edge cases and validations (dates, amounts, group structure)  
-- Hands-on execution with a modern web stack from concept → working MVP  
+- Hands-on execution with a modern web stack from concept → working MVP
+
+```
+
+
