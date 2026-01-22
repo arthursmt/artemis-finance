@@ -234,6 +234,31 @@ npm install
 3. Start the development server:
 npm run dev
 If the scripts differ, check the package.json in the root or in the client/ folder and run the appropriate dev script from there.
+
+## Development, Preview and Production Environments
+
+This project uses a modern setup combining **Express** (API/server) and **Vite** (frontend dev server).
+
+### Important note about Replit Preview
+
+The Replit Preview environment runs the application inside an iframe and injects its own security headers.
+Because of this, **the Preview is not a reliable source of truth** for applications using:
+
+- Vite dev server
+- Custom Content Security Policy (CSP)
+- Express-based backend
+
+As a result:
+- The application may fail to load in Replit Preview
+- This behavior is expected and does not indicate a bug
+
+### Source of truth
+
+- ✅ **Production URL (`*.replit.app`)** → Source of truth
+- ✅ **Direct browser access** → Fully supported
+- ⚠️ **Replit Preview** → Best-effort only
+
+The application is considered healthy if it works correctly in production and in a standard browser.
    
 9. Roadmap & next steps
 
