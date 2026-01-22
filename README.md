@@ -258,6 +258,7 @@ Or validate via curl http://localhost:5000/
 * For reviewers/recruiters, the published URL is the reliable demo environment.
 
 ---
+```
 
 ## 9. Roadmap & next steps
 
