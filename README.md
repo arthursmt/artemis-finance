@@ -262,11 +262,31 @@ As a result:
 
 ### Source of truth
 
-- ✅ **Production URL (`*.replit.app`)** → Source of truth
-- ✅ **Direct browser access** → Fully supported
-- ⚠️ **Replit Preview** → Best-effort only
+- **Production URL (`*.replit.app`)** → Source of truth
+- **Direct browser access** → Fully supported
+- **Replit Preview** → Best-effort only
 
 The application is considered healthy if it works correctly in production and in a standard browser.
+
+## Replit: Development vs Published
+
+This repo runs in two different contexts:
+
+- **Development (Replit workspace / Port 5000)**: used while coding (`npm run dev`). You can validate the server with:
+  - `curl http://localhost:5000/`
+  - `curl http://localhost:5000/healthz`
+
+- **Published app (replit.app)**: public URL used for real demos and recruiter review:
+  - https://artemis-hub.replit.app
+
+### Known issue: Replit Preview panel may fail
+Sometimes the **embedded Preview panel** (iframe inside Replit) does not load even when the server is running and the published app works.
+
+If the Preview panel shows a blocked/empty state:
+1. Open the published URL directly in a browser: `https://artemis-hub.replit.app`
+2. Or use `curl http://localhost:5000/` to confirm the dev server is responding.
+
+The source of truth for demos is the **published URL**, not the embedded Preview panel.
    
 9. Roadmap & next steps
 
