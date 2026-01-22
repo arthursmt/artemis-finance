@@ -258,7 +258,7 @@ Or validate via curl http://localhost:5000/
 * For reviewers/recruiters, the published URL is the reliable demo environment.
 
 ---
-```
+
 ## 9. Roadmap & next steps
 
 - Complete Business Data and Financials (P&L) tabs  
@@ -268,7 +268,7 @@ Or validate via curl http://localhost:5000/
 - Export proposals to a core banking / LOS system  
 
 ---
-```
+
 ## 10. Notes for reviewers & recruiters
 
 This repo is part of a product portfolio and demonstrates:
@@ -276,7 +276,5 @@ This repo is part of a product portfolio and demonstrates:
 - Design of clear, tablet-friendly flows for field agents  
 - Careful handling of edge cases and validations (dates, amounts, group structure)  
 - Hands-on execution with a modern web stack from concept → working MVP
-
-```
 
 
