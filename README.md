@@ -1,281 +1,174 @@
 # Artemis Finance – Credit Platform MVP
 
-Product case study + working MVP of a multi-app credit platform for microfinance and small-ticket lending.
+Product case study + working MVP of a multi-app credit platform 
+for microfinance and small-ticket lending.
 
-**Live demo (Published):** https://artemis-hub.replit.app
-
----
-
-## Ecosystem map (MVP)
-
-HUNT (Field App)  →  ARISE (Service Hub / API)  →  GATE (Backoffice)
-
-- **Hunt:** creates proposals, captures client data and evidence (docs/photos)
-- **ARISE:** validates, stores, and exposes proposal lifecycle endpoints (stages)
-- **Gate:** reviews proposals by stage, supports workflow and operational visibility
+**Live demo:** https://artemis-hub.replit.app  
+**Docs & source:** https://github.com/arthursmt/artemis-finance
 
 ---
 
-## Repository structure (current)
+## How this was built — AI-assisted product development
 
-- `client/` → Frontend app(s) (Hunt/Gate UI depending on module)
-- `server/` → Backend runtime / API handlers
-- `backend/` → Backend services / integration layers (ARISE components)
-- `shared/` → Shared types/components/utilities across apps
-- `attached_assets/` → Screenshots and diagrams
+This project was built end-to-end by a solo PM using an 
+AI-assisted development workflow:
 
----
+| Tool | Role in this project |
+|---|---|
+| **Replit AI** | Code generation, UX/UI scaffolding, architecture, prototyping |
+| **Claude (Anthropic)** | Critical evaluation, QA, bug fixing, product logic review |
+| **ChatGPT** | Brainstorming, documentation drafting, bug fixing |
 
-## About this project – my perspective
+No traditional engineering team. No designer. This is what 
+AI-augmented product building looks like in practice: a PM 
+who can scope, design, build, and ship a working product 
+using AI as the execution layer.
 
-This project demonstrates how I:
-- scoped product requirements from research
-- designed interaction flows for agents and back office users
-- implemented core screens with accessible validations
-- translated business rules into UI + data constraints
-- documented limitations, trade-offs, and next steps
-
----
-
-## 1. Overview
-
-This repository demonstrates the design and implementation of a digital credit platform aimed at supporting credit agents in field operations. The MVP focuses on the agent experience, capturing client proposals, enforcing business rules, and enabling workflow from data capture to proposal review.
-
-Traditional microfinance and small-ticket lending still rely heavily on:
-- paper forms and manual data entry  
-- fragmented tools (WhatsApp, spreadsheets, legacy core systems)  
-- little/no support for **group lending**  
-- poor visibility of portfolio quality at the agent level  
-
-Artemis Finance is a product concept designed around two realities:
-
-1) Many borrowers are **thin-file customers** (immigrants, foreign nationals, informal workers).  
-2) Most credit origination still happens via **human relationships in the field**, not inside branches.
-
-This MVP focuses on the **field agent experience**: reduce operational risk with clear workflow + validations while keeping the UI fast and simple for agents working under time/connectivity pressure.
+This workflow mirrors how lean product teams will operate 
+going forward — and this project is proof of concept.
 
 ---
 
-## 2. What this MVP does
+## Ecosystem map
 
-From the perspective of a **credit agent**, the Artemis Hunt MVP allows them to:
+HUNT (Field App) → ARISE (Service Hub / API) → GATE (Backoffice)
 
-- view an **On Going Proposals** list and resume partially completed applications  
-- start a **new credit proposal** for an individual or group  
-- build a **group loan** with up to **5 members**  
-- capture each member’s:
-  - loan configuration (**Loan Details**) ✅
-  - personal data ✅
-  - business data (planned)
-  - simple P&L / financials (planned)
-
-The current implementation focuses on two screens:
-
-1) **Proposals List (Dashboard)**
-   - shows ongoing proposals with client name, amount, status, and actions
-   - allows the agent to open, continue filling, view details, or delete
-   - preserves data so proposals can be resumed later
-
-2) **Product Configuration / Member Form**
-   - header with **Group ID**, **Leader name**, **base credit rate**
-   - tabs for each member (1…N), keeping the leader always in position #1
-   - per member, sub-tabs:
-     - **Loan Details** ✅
-     - **Personal Data** ✅
-     - **Business Data** (placeholder)
-     - **Financials (P&L)** (placeholder)
+- **Hunt:** field agent app — creates proposals, captures 
+  client data and evidence
+- **ARISE:** validates, stores, and exposes proposal lifecycle 
+  endpoints
+- **Gate:** back-office review by stage, workflow and 
+  operational visibility
 
 ---
 
-## 3. Loan Details – UX and business rules
+## Why this product exists
 
-The **Loan Details** tab is designed for tablet usability while enforcing key credit policies.
+Traditional microfinance and small-ticket lending still rely on:
+- Paper forms and manual data entry
+- Fragmented tools (WhatsApp, spreadsheets, legacy core systems)
+- No support for group lending
+- Poor portfolio visibility at the agent level
 
-### Fields and behavior
+Artemis Finance is designed around two market realities:
 
-- **Loan value ($)**
-  - formatted as US currency (supports cents/decimals)
-  - quick buttons: `+500`, `+1k`, `-500`, `-1k`
-  - rules:
-    - min: **$500**
-    - max: **$50,000**
-    - inline errors when out of range
+1. Many borrowers are **thin-file customers** — immigrants, 
+   informal workers, foreign nationals with no credit history
+2. Most credit origination happens via **human relationships 
+   in the field**, not inside branches
 
-- **Loan type**
-  - dropdown (Working capital, Investment, Other)
-  - default: **Working capital**
-
-- **Interest rate (APR, % per year)**
-  - non-editable
-  - default: **14% APR fixed** (base credit rate shown in header)
-
-- **Number of installments**
-  - dropdown from **3 to 12 months**
-  - recalculates monthly installment
-
-- **First payment date**
-  - date picker rules:
-    - within **60 days** from today
-    - on or before the **15th** of the chosen month
-  - invalid choices show an explanatory error
-
-- **Grace period (days)**
-  - read-only
-  - calculated as days between today and the selected first payment date
-
-- **Loan goal**
-  - dropdown (Inventory, Equipment purchase, Working capital, Debt consolidation, Other)
-  - selecting **Other** reveals **Other goal (optional)** text field
+The MVP focuses on the **field agent experience**: reduce 
+operational risk with clear workflow and validations while 
+keeping the UI fast and simple under time and connectivity 
+pressure.
 
 ---
 
-## 4. Insurance logic & monthly payment summary
+## What the MVP does
 
-The app helps the agent explain the **real monthly cost** of the loan.
+From the perspective of a credit agent:
 
-### Borrower’s Insurance (Credit Life)
+- View ongoing proposals and resume partially completed 
+  applications
+- Start a new credit proposal for an individual or group
+- Build a group loan with up to 5 members
+- Capture loan configuration, personal data, and business 
+  data per member
 
-- toggle: Yes/No (default **Yes**)
-- premium: **2% of principal** (no interest)
-- UI shows:
-  - total credit life cost
-  - monthly share included in payment summary
+**Implemented:**
+- Proposals dashboard with status, actions, and data persistence
+- Group loan structure with leader logic and member ordering
+- Loan Details tab: APR calculation, installment engine, 
+  insurance logic, payment summary
+- Personal Data tab: full validation, contact numbers, references
 
-### Optional insurances
-
-Three cascading dropdowns:
-
-1) optional insurance 1  
-2) optional insurance 2 (only appears if #1 ≠ None)  
-3) optional insurance 3 (only appears if #2 ≠ None)
-
-Options and example pricing:
-
-- **Health Plus** – $40/month  
-- **Work Loss** – $20/month  
-- **Income Protection** – $30/month  
-- **None**
-
-Behavior:
-- dropdown label includes monthly price
-- info icon (`i`) shows a short explanation
-- Summary adds up selected premiums
-
-### Summary box
-
-At the bottom of Loan Details:
-
-- base monthly installment (principal + interest, fixed-installment formula)
-- credit life monthly share
-- optional insurances total monthly
-- interest rate (14% APR)
-- first payment date + due day of month
-- **total monthly payment** = installment + insurances
-
-This supports transparent conversations and reduces disputes about the real payment.
+**Roadmap:**
+- Business Data and Financials (P&L) tabs
+- Risk score based on member data + loan configuration
+- Role-based flows for credit committee and operations
+- Audit trail and activity log
+- Export to core banking / LOS system
 
 ---
 
-## 5. Personal Data tab
+## Product decisions worth noting
 
-Each member has a **Personal Data** form with validation for mandatory fields:
+**Loan Details UX:** Designed for tablet usability with quick 
+input buttons (+500, +1k) to minimize typing in field conditions. 
+Business rules enforced inline — no silent failures.
 
-- First / Middle / Last name  
-- Document type (SSN, Driver’s License, etc.)  
-- Document ID  
-- Country of origin  
-- Birth date  
-- Address 1 & 2  
-- State, City, ZIP  
-- Up to **3 contact numbers** (type + number)  
-- Up to **2 references** (name + phone)  
+**Insurance logic:** Cascading optional insurances with 
+transparent monthly payment summary. Built to reduce agent 
+disputes about real loan cost — a known pain point in 
+microfinance field operations.
 
-Mandatory fields are clearly marked and validated when saving or navigating.
+**Group lending:** Member tab ordering is stable with 
+intentional leader assignment. Proposals persist so agents 
+can resume across sessions — critical for low-connectivity 
+environments.
 
----
-
-## 6. Group management & leader logic
-
-The proposal is always a **group**, even if it has one member.
-
-- add members up to **five**
-- member tab ordering is stable (no unexpected reordering)
-- leader is always **Member 1**
-- option to **change leader**:
-  - dialog lists existing members
-  - chosen leader becomes #1
-  - other members keep relative order
-
-Member data is persisted so proposals can be resumed from the dashboard.
+**Thin-file design:** Document type flexibility (SSN, 
+Driver's License, foreign ID) and reference capture built 
+into personal data — addressing the real customer profile 
+of underserved borrowers.
 
 ---
 
-## 7. Architecture & tech stack
+## Tech stack
 
-This repo is organized as a small monorepo:
+| Layer | Technology |
+|---|---|
+| Frontend | React + TypeScript + Vite |
+| Backend | Express (Node.js) |
+| Styling | Tailwind utility classes |
+| Persistence | SQL/ORM scaffolding |
+| Hosting | Replit (published) |
+| AI development | Claude, ChatGPT, Replit AI |
 
-- `client/` – **Artemis Hunt** web app (React + TypeScript + Vite), styled for tablet use  
-- `server/` + `backend/` – API/runtime scaffolding (Replit stack) for future platform evolution  
-- `shared/` – shared utilities/types (proposal store, domain models)  
-- `attached_assets/` – design and iteration assets  
-
-Key technologies:
-- **React + TypeScript**
-- **Vite** (frontend dev server)
-- **Express** (API/server)
-- Tailwind-style utility classes for layout/spacing
-- Persistence layer behind the proposal store (SQL/ORM scaffolding)
-
-> Product-first MVP: the strongest emphasis is **product design, UX, and business rules**, while keeping an engineering foundation that can evolve into a fuller platform.
+Repository structure:
+- `client/` — Hunt/Gate frontend apps
+- `server/` + `backend/` — API and runtime handlers
+- `shared/` — shared types, proposal store, domain models
+- `attached_assets/` — design and iteration assets
 
 ---
 
-## 8. Running the project
-
-### Local
+## Running locally
 
 ```bash
 git clone https://github.com/arthursmt/artemis-finance.git
 cd artemis-finance
 npm install
 npm run dev
-The server runs on port 5000 (Replit default). To validate locally:
-curl http://localhost:5000/
-curl http://localhost:5000/healthz
-
-**Replit: Development vs Published (important)**
-This repo runs in two contexts:
-- Development (Replit workspace / Port 5000): npm run dev
-- Published app (replit.app): https://artemis-hub.replit.app
- (source of truth for demos)
-
-Known issue: Replit Preview panel may fail
-The embedded Replit Preview runs inside an iframe and may fail to load even when the server is healthy (Vite + CSP/iframe behavior can be inconsistent in Preview).
-
-If Preview looks blocked/empty:
-Open the published URL directly: https://artemis-hub.replit.app
-Or validate via curl http://localhost:5000/
-* For reviewers/recruiters, the published URL is the reliable demo environment.
-
----
 ```
 
-## 9. Roadmap & next steps
+Server runs on port 5000. Validate with:
+```bash
+curl http://localhost:5000/
+curl http://localhost:5000/healthz
+```
 
-- Complete Business Data and Financials (P&L) tabs  
-- Add a simple risk score based on member data + loan configuration  
-- Role-based flows for back-office teams (credit committee, operations)  
-- Audit trail and activity log per proposal  
-- Export proposals to a core banking / LOS system  
+**Note on Replit Preview:** The embedded preview may fail 
+due to Vite + CSP/iframe behavior. Use the published URL 
+directly for demos: https://artemis-hub.replit.app
 
 ---
 
-## 10. Notes for reviewers & recruiters
+## For recruiters and reviewers
 
-This repo is part of a product portfolio and demonstrates:
-- Ability to frame a lending problem and translate policies into product constraints  
-- Design of clear, tablet-friendly flows for field agents  
-- Careful handling of edge cases and validations (dates, amounts, group structure)  
-- Hands-on execution with a modern web stack from concept → working MVP
+This project demonstrates:
 
+- **Product thinking:** lending problem framed from user 
+  research, policies translated into product constraints
+- **AI-augmented execution:** built solo using Claude, 
+  ChatGPT, and Replit AI as the engineering layer
+- **UX judgment:** tablet-first flows for field agents 
+  under time and connectivity pressure
+- **Edge case handling:** date validation, amount rules, 
+  group structure, cascading logic
+- **Modern PM skill set:** concept → working MVP, 
+  documented and deployed, without a traditional eng team
 
+The goal is not to demonstrate coding skills. It is to 
+demonstrate that a PM who understands product deeply enough 
+can ship real software using AI — and document it honestly.
